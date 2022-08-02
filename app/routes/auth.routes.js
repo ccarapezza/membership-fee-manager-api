@@ -1,5 +1,6 @@
 const { verifySignUp } = require("../middleware");
 const controller = require("../controllers/auth.controller");
+const { check, validationResult } = require('express-validator');
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -13,8 +14,18 @@ module.exports = function(app) {
   app.post(
     "/api/auth/signup",
     [
+      check('username').exists({checkFalsy: true}),
+      check('email').exists({checkFalsy: true}),
+      check('password').exists({checkFalsy: true}),
+      (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+      },
       verifySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkRolesExisted
+      verifySignUp.checkRolesExisted,
     ],
     controller.signup
   );
