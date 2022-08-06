@@ -56,4 +56,26 @@ function initial() {
     id: 3,
     name: "admin",
   });
+
+  User.create({
+    username: "admin",
+    email: "admin@admin.com",
+    password: "$08$IB/3iLQp6IwzfJVoZvvTBOQHF8BxHi6cahZ3jxIlVWemvO8RpqFhK", //admin
+  }).then((user) => {
+    user.setRoles([1]);
+  });
 }
+
+/*
+Juan Martín	Hotaseguí
+María de los Ángeles Cabrera
+Olga Rufina Morel
+Belén	Caamaño
+Facundo	Rivadeneira
+Pablo	Álvarez
+Rodolfo	Sbattella
+Federico	Salomón
+Daniela	Cugat
+Pablo	Chebel
+Christian	Carapezza
+*/

@@ -1,9 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
   const FeeType = sequelize.define("feeTypes", {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true
-    },
     name: {
       type: Sequelize.STRING
     },

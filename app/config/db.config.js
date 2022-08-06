@@ -2,7 +2,7 @@ module.exports = {
   HOST: "localhost",
   USER: "root",
   PASSWORD: "represion",
-  DB: "membership-fee-manager-api-cup-db",
+  DB: "membership-fee-manager-api-db",
   dialect: "mysql",
   pool: {
     max: 5,

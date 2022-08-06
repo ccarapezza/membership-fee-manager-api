@@ -41,6 +41,24 @@ isAdmin = (req, res, next) => {
   });
 };
 
+isMember = (req, res, next) => {
+  User.findByPk(req.userId).then(user => {
+    user.getRoles().then(roles => {
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i].name === "member") {
+          next();
+          return;
+        }
+      }
+
+      res.status(403).send({
+        message: "Require Member Role!"
+      });
+      return;
+    });
+  });
+};
+
 isModerator = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {

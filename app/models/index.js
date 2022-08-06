@@ -35,7 +35,15 @@ db.sequelize = sequelize;
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.member = require("../models/member.model.js")(sequelize, Sequelize);
 db.memberType = require("../models/memberType.model.js")(sequelize, Sequelize);
+db.feeType = require("../models/memberType.model.js")(sequelize, Sequelize);
+db.memberType = require("../models/memberType.model.js")(sequelize, Sequelize);
+db.lastPaymentMember = require("../models/lastPaymentMember.model.js")(sequelize, Sequelize);
+db.member = require("../models/member.model.js")(sequelize, Sequelize);
+db.membershipFee = require("../models/membershipFee.model.js")(sequelize, Sequelize);
+db.memberType = require("../models/memberType.model.js")(sequelize, Sequelize);
+db.paymentMemberHistory = require("../models/paymentMemberHistory.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -48,6 +56,23 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId",
 });
 
-db.ROLES = ["user", "admin", "moderator"];
+db.ROLES = ["member", "admin", "moderator"];
+
+//Member
+db.member.belongsTo(db.memberType);
+db.member.belongsTo(db.feeType);
+db.member.belongsTo(db.user);
+
+//Membership-fee
+db.membershipFee.belongsTo(db.memberType);
+db.membershipFee.belongsTo(db.feeType);
+
+//Last payment member
+db.lastPaymentMember.belongsTo(db.member);
+db.lastPaymentMember.belongsTo(db.membershipFee);
+
+//Payment member history
+db.lastPaymentMember.belongsTo(db.member);
+db.lastPaymentMember.belongsTo(db.membershipFee);
 
 module.exports = db;
